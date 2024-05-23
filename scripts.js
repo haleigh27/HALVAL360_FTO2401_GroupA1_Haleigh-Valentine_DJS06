@@ -8,17 +8,21 @@ const provinces = ['Western Cape', 'Gauteng', 'Northern Cape', 'Eastern Cape', '
 // A list of names:
 const names = ['Ashwin', 'Sibongile', 'Jan-Hendrik', 'Sifso', 'Shailen', 'Frikkie'];
 
-/*-----------------------------------------------------------------------------------------------*/
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 // Function to log a black line in console for better data readability.
 const blank = () => console.log('');
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 // Exercise 1 - forEach
 console.log('Exercise 1 - forEach');
 blank();
+
+/*
+Use forEach method which iterates over the array, executing the relevant callback function passed into the method on every iteration.
+*/
 
 provinces.forEach((province) => console.log(province));
 blank();
@@ -31,7 +35,7 @@ names.forEach((name, index) => {
 });
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 // Exercise 2 - map
 console.log('Exercise 2 - map');
@@ -44,7 +48,7 @@ const provincesUpperCase = provinces.map((province) => province.toUpperCase());
 console.log(provincesUpperCase);
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 //Exercise 3 - map
 console.log('Exercise 3 - map');
@@ -57,7 +61,7 @@ const nameLenghts = names.map((name) => name.length);
 console.log(nameLenghts);
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 //Exercise 4 - sort
 console.log('Exercise 4 - sort');
@@ -70,7 +74,7 @@ provinces.sort();
 console.log(provinces);
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 //Exercise 5 - filter
 console.log('Exercise 5 - filter');
@@ -82,10 +86,10 @@ Condition: String does not contain the word 'Cape'. (used includes method)
 
 const filteredProvinces = provinces.filter((province) => !province.includes('Cape'));
 console.log(filteredProvinces.length);
-console.log(filteredProvinces);
+//console.log(filteredProvinces);
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 //Exercise 6 - map and some
 console.log('Exercise 6 - map and some');
@@ -107,7 +111,7 @@ const findingS = names.map((name) => {
 console.log(findingS);
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 //Exercise 7 - reduce
 console.log('Exercise 7 - reduce');
@@ -135,9 +139,9 @@ const namesAndProvinces = names.reduce(namesProvincesReducer, {});
 console.log(namesAndProvinces);
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 blank();
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 //Advanced Exercises
 console.log('Advanced Exercises');
@@ -155,196 +159,199 @@ const products = [
     { product: 'tea', price: '' },
 ];
 
-/*-----------------------------------------------------------------------------------------------*/
-
-/* Solution Logic applicable to all solutions using the reduce medthod:
-
-- General
-Reduce method has a parameter for a callback function and an initial value.
-
-- Use the reduce method on the array. 
-This passes each item in the array through the reducer callback function along with the total or accumulative value returned by the reducer callback function on the previous iteration.
-
-- Set the initial value to be passed by the reducer method to: 
-an empty array [] if the reducer is to return an array,
-an empty string '' if the reducer is to return a string,
-0 if the reducer is to return the sum of numbers
-
-- Create the reducer callback function.
-(see indivial exercises for details)
-
-*/
-
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 //Advanced Exercise 1 - Log Products
 console.log('Advanced Exercise 1 - Log Products');
 
+/* Advanced Exercise 1 problem
+Log Products: Iterate over the products array, logging each product name.
+*/
+
 /*
- * Use forEach to iterate over products array and log each product property value to the console.
+Solution Logic: 
+ 
+Use map to iterate over products array creating a new array of product property values.
+Join the products of the array into a single string, with each product separated by a newline character (\n).
  */
-products.forEach((product) => console.log(product.product));
+
+console.log(products.map((product) => product.product).join('\n'));
 
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 //Advanced Exercise 2 - Filter by name length
 console.log('Advanced Exercise 2 - Filter by name length');
 
+/* Advanced Exercise 2 problem
+Filter by Name Length: Filter out products with names longer than 5 characters.
+*/
+
 /*
+Solution Logic: 
+
 Use filter method on products array: loops through each object in the array and returns a new array of objects that meet the condition.
 Condition: String value of product property less than 6 characters.
 */
 
-const productsWithShortNames = products.filter((product) => product.product.length < 6);
-
-console.log(productsWithShortNames);
+console.log(products.filter((product) => product.product.length < 6));
 
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 //Advanced Exercise 3 - Price Manipulation
 console.log('Advanced Exercise 3 - Price Manipulation');
 
-// Filter out products without prices (parseInt(product.price) returns NaN)
-const productsWithPrices = products.filter((products) => parseInt(products.price));
+/* Advanced Exercise 3 problem
+Price Manipulation: Filter out products without prices, convert string prices to numbers, and calculate the total price using `reduce`.
+*/
 
 /* 
-Create a new array of objects with all prices converted to numbers.
-- Use map method to iterate over objects in productsWithPrices array.
-- Use spread operator to expand current object.
-- target price property and change the current value to a number using parseInt().
+Solution Logic: 
+
+* Filter: filter out products without prices (product where parseInt(product.price) returns NaN)
+
+* Map: Creates a new array of objects with all prices converted to numbers.
+    - Use map method to iterate over array.
+    - Use spread operator to expand current object.
+    - target price property and change the current value to a number using parseInt().
+
+* Reduce: Iterates through products array and returns a single value.
+- Reducer callback function:
+    -parameters:
+        - sum {number} - The sum returned on the previous iteration or 0 if first iteration.
+        - product {object} - Current object from the array (object must have a price property).
+    - returns single cumulative value. The sum of the prices. Also used for next iteration.
+    - Initial value: 0
  */
-const validProducts = productsWithPrices.map((product) => ({
-    ...product,
-    price: parseInt(product.price),
-}));
 
-/**
- * Reducer callback function which sums the product prices
- *
- * @param {number} sum - The number returned on the previous iteration or 0 if first iteration.
- * @param {object} product - Current object from the array (object must have a price property).
- * @returns {number}
- */
-const sumPrices = (sum, product) => {
-    return sum + product.price;
-};
-
-// Total price determined by using reduce method.
-const totalPrice = validProducts.reduce(sumPrices, 0);
-
-console.log(`Total price - R${totalPrice}`);
+// Log total price of products in products array by using the reduce method.
+console.log(
+    'Total price - R' +
+        products
+            .filter((product) => parseInt(product.price))
+            .map((product) => ({ ...product, price: parseInt(product.price) }))
+            .reduce((sum, product) => sum + product.price, 0)
+);
 
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 // Advanced Exercise 4 - Concatenate Product Names
 console.log('Advanced Exercise 4 - Concatenate Product Names');
 
-/**
- * Reducer callback function which concatenates the product names and returns a single string.
- *
- * @param {string} sum - The string returned on the previous iteration or '' if first iteration.
- * @param {object} product - Current object from the array. (object must have a product property).
- * @returns {string} - The concatenated string. Also used for next iteration.
- */
-const concatenateProductNames = (sum, product) => {
-    return sum ? sum + ' ' + product.product : product.product;
-};
+/* Advanced Exercise 4 problem
+Concatenate Product Names: Use `reduce` to concatenate all product names into a single string.
+*/
+
+/* 
+Solution Logic:
+
+* Reduce: Iterates through products array and returns a single value.
+- Reducer callback function:
+    -parameters:
+        - sum {number} - The string returned on the previous iteration or '' if first iteration.
+        - product {object} - Current object from the array. (object must have a product property).
+    - returns single cumulative value. The concatenated string. Also used for next iteration.
+- Initial value: ''
+*/
 
 // String of all product names made with reduce method.
-const productNameString = products.reduce(concatenateProductNames, '');
-
-console.log(productNameString);
+console.log(products.reduce((sum, product) => (sum ? sum + ' ' + product.product : product.product), ''));
 
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 // Advanced Exercise 5 - Find Extremes in Prices
 console.log('Advanced Exercise 5 - Find Extremes in Prices');
 
-/* Logic for the reducer callback function: minMaxReducer
-
-Create a new array consisting of the objects with the highest and lowest prices:
-  - set minMax[0] to the object with the lowest price by comparing the price of the current object to the value stored in minMax[0] and resetting it to the lower of the two.
-  - set minMax[1] to the object with the highest price by comparing the price of the current object to the value stored in minMax[1] and resetting it to the higher of the two.
-  - return the new minMax array which is also used for the next iteration. 
+/* Advanced Exercise 5 problem
+Find Extremes in Prices: Identify the highest and lowest-priced items, returning a string formatted as "Highest: X. Lowest: Y."
 */
 
-/**
- * Reducer callback function which returns an array of the product objects with the lowest (minMax[0]) and highest (minMax[1]) prices.
- *
- * @param {array} minMax - Array of product objects with the highest and lowest price returned by the function on the previous iteration. (initial = [])
- * @param {object} current - The current iteration object.
- * @returns {array} - The new array of product objects.
- */
-const minMaxReducer = (minMax, current) => {
-    minMax[0] = minMax[0] === undefined || current.price < minMax[0].price ? current : minMax[0];
-    minMax[1] = minMax[1] === undefined || current.price > minMax[1].price ? current : minMax[1];
-    return minMax;
-};
+/* 
+Solution Logic:
 
-/* Use the reduce method which passes each item (object) in the validProducts array to the reducer callback funtion. */
+* Create a immediately invoked function inside the console.log and add logic.
+  * Create a new minMaxArray consisting of the objects with the highest and lowest prices:
+    * Filter and map method (as done in exercise 3) used to create an array containing only valid prices and convert them to numbers
+    * Reduce method passes each item (object) in the products array to the reducer callback funtion and returns an array of the product objects with the lowest (minMax[0]) and highest (minMax[1]) prices.
+    - Reducer callback function: 
 
-// Array of the objects with the lowest and highest price in the valid products array.
-const minMaxArray = validProducts.reduce(minMaxReducer, []);
+    -parameters:
+        - minMax {array} - Array of product objects with the highest and lowest price returned by the function on the previous iteration. 
+        - current {object} - The current iteration object.
+    -logic:
+        - set minMax[0] to the object with the lowest price by comparing the price of the current object to the value stored in minMax[0] and resetting it to the lower of the two.
+        - set minMax[1] to the object with the highest price by comparing the price of the current object to the value stored in minMax[1] and resetting it to the higher of the two.
+        - returns the new minMax array which is also used for the next iteration. 
 
-console.log(`
-  Highest Price - ${minMaxArray[1].product}: R${minMaxArray[1].price},
-  Lowest Price - ${minMaxArray[0].product}: R${minMaxArray[0].price}
-`);
+    - initial value []
+* Return string with highest and lowest prices from the minMaxArray
+*/
+
+console.log(
+    (() => {
+        // Reducer callback function
+        const minMaxReducer = (minMax, current) => {
+            minMax[0] = minMax[0] === undefined || current.price < minMax[0].price ? current : minMax[0];
+            minMax[1] = minMax[1] === undefined || current.price > minMax[1].price ? current : minMax[1];
+            return minMax;
+        };
+
+        // minMaxArray consisting of the objects with the highest and lowest prices
+        const minMaxArray = products
+            .filter((product) => parseInt(product.price))
+            .map((product) => ({ ...product, price: parseInt(product.price) }))
+            .reduce(minMaxReducer, []);
+
+        return `Highest Price - ${minMaxArray[1].product}: R${minMaxArray[1].price}, Lowest Price - ${minMaxArray[0].product}: R${minMaxArray[0].price}`;
+    })()
+);
 
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 // Advanced Exercise 6 - Object Transformation
 console.log('Advanced Exercise 6 - Object Transformation');
 
-/* Logic for the reducer callback function: reducer
-
-Create a new item (Object) by:
-  - declaring a newProduct variable, set to an empty object.
-  - destructuring the current item (product) into key and value with Object.entries,
-  - then replacing all the product keys with name and all the price keys with cost,
-  - setting the keys to their original values. 
-
- Push the new item (object) to the total (array) which is returned and thus used as the acculative value (first parameter) for the next iteration.
+/* Advanced Exercise 6 problem
+Object Transformation: Using `Object.entries` and `reduce`, recreate the products object with keys 'name' and 'cost', maintaining their original values.
 */
 
-/**
- * Reducer callback function - transforms object and pushes it to the total (array).
- *
- * @param {array} total - Cumulative array of product objects returned by the function on the previous iteration. (initial = [])
- * @param {object} product - The current iteration object.
- * @returns {array} - The new cumulative array of product objects.
- */
-const reducer = (total, product) => {
-    let newProduct = {};
+/* 
+Solution Logic:
 
-    for (const [key, value] of Object.entries(product)) {
-        if (key === 'product') {
-            newProduct.name = value;
-        } else if (key === 'price') {
-            newProduct.cost = value;
-        }
-    }
-    total.push(newProduct);
-    return total;
-};
+* Create a new array of objects with name and cost properties:
+    *Object.entries converts products array into an array of key(index)-value(object) pairs.
+    * Reduce method iterates over the array and passes each item (key(index)-value(object) pair) to the reducer callback funtion and returns a new array of objects.
+    - Reducer callback function 
 
-/* Use the reduce method which passes each item (object) in the products array to the reducer callback funtion. */
+    -parameters:
+        - accArray {array} - Cumulative array of product objects returned by the callback function on the previous iteration or [] if first iteration.
+        - [key, value] {array} - Current array iteration, destructured into the key(index) and value(object). Object must have product and price properties.
+    -logic:
+        - create a new item (Object) by:
+            - setting the original product value to a name key
+            - setting the original price value to a cost key
+        - assign the new object to the accArray at the original index 'key'.
+        - returns the new accArray which is also used for the next iteration. 
+    - initial value []
+*/
 
-// newArray of product objects with name and cost keys.
-const newArray = products.reduce(reducer, []);
-
-console.log(newArray);
+// Logs array of product objects with name and cost keys.
+console.log(
+    Object.entries(products).reduce((accArray, [key, value]) => {
+        accArray[key] = { name: value.product, cost: value.price };
+        return accArray;
+    }, [])
+);
 
 blank();
 
-/*-----------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
