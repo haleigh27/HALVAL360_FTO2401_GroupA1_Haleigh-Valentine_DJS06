@@ -14,7 +14,7 @@ const names = ['Ashwin', 'Sibongile', 'Jan-Hendrik', 'Sifso', 'Shailen', 'Frikki
 
 /* ============================================================================================== */
 
-// Function to log a black line in console for better data readability.
+// Function to log a blank line in console for better data readability.
 const blank = () => console.log('');
 blank();
 
@@ -241,7 +241,7 @@ console.log(
     - [key, value] {array} - Current array iteration, destructured into the key(index) and value(object). Object must have product and price properties.
 */
 
-// Logs array of product objects with name and cost keys.
+// Logs an array of product objects with name and cost keys using the existing products array.
 console.log(
     Object.entries(products).reduce((accArray, [key, value]) => {
         accArray[key] = { name: value.product, cost: value.price };

@@ -4,7 +4,7 @@ This file was added because I was confused by the ambiguity in the following ins
 "For these exercises, wrap your logic in a single console.log statement:"
 
 - In scripts.js, I interpreted this by adding the logic for each exercise into a separate console.log statement, resulting in six different logs.
-- In this file, I copied the exact code for the advanced examples from scripts.js. I removed the lengthy comments detailing my approach and just added a line or two about what the code does. (Please see scripts.js for a detailed explanation.)
+- In this file, I copied the exact code for the advanced examples from scripts.js and wrapped all of it in one console.log(), removing the original 6. I removed the lengthy comments detailing my approach and just added a line or two about what the code does. (Please see scripts.js for a detailed explanation.)
 - To log the results from this file to the console, please add the script tag to the index.html file.
         <script src="AE-SingleCL.js" type="module" defer></script>
 */
